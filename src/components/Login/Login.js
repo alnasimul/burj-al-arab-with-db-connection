@@ -27,13 +27,24 @@ const Login = () => {
                     email,
                     photoURL
                 }
-                console.log(signedInUser);
+               // console.log(signedInUser);
                 setLoggedInUser(signedInUser);
-                console.log(loggedInUser);
+               // console.log(loggedInUser);
+                storeAuthToken();
                 history.replace(from);
         }).catch(err => {
 
         })
+    }
+
+    const storeAuthToken = () => {
+        firebase.auth().currentUser.getIdToken(/* forceRefresh */ true)
+        .then(function(idToken) {
+            sessionStorage.setItem('idToken',idToken)
+          //  console.log(sessionStorage.getItem('idToken'));
+          }).catch(function(error) {
+            // Handle error
+          });
     }
     return (
         <div>
